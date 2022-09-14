@@ -1,14 +1,23 @@
 const express = require('express');
+const userModel = require('./models/userModel');
+const userRoutes = require('./routes/user.routes');
 require('dotenv').config({path:'./config/.env'})
 require('./config/database-config/dbConfig');
+const cors = require('cors');
+const bodyparser = require('body-parser');
 
 const app = express();
 
-/***
- * 
- * Start using this API here.
- * 
- */
+app.use(cors());
+app.use(bodyparser.json());
+
+/////////////////////////////////////////////////
+/////// Start using this API here. //////////////
+/////////////////////////////////////////////////
+
+
+// Authentification routes
+app.use('/api/auth/', userRoutes)
 
 
 // Serveur
