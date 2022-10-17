@@ -1,24 +1,26 @@
 const express = require('express');
 const userModel = require('./models/userModel');
 const userRoutes = require('./routes/user.routes');
+const saucesRoutes = require('./routes/sauce.routes.js')
 require('dotenv').config({path:'./config/.env'})
 require('./config/database-config/dbConfig');
 const cors = require('cors');
 const bodyparser = require('body-parser');
+const cookieparser = require('cookie-parser');
 
 const app = express();
 
 app.use(cors());
 app.use(bodyparser.json());
-
-/////////////////////////////////////////////////
-/////// Start using this API here. //////////////
-/////////////////////////////////////////////////
+app.use(cookieparser());
 
 
-// Authentification routes
+
+// User routes
 app.use('/api/auth/', userRoutes)
 
+// Routes sauces
+app.use("/api/sauces/", saucesRoutes);
 
 // Serveur
 app.listen(process.env.PORT, ()=>{
