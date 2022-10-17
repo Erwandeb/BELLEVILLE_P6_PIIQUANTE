@@ -26,3 +26,16 @@ app.use("/api/sauces/", saucesRoutes);
 app.listen(process.env.PORT, ()=>{
     console.log(`Le serveur tourne sur le port ${process.env.PORT}.`)
 })
+
+
+
+
+/* TO DO LIST
+*
+* 1/ Intégrer le front
+* 2/ Tester la route create sauce en commencant par créer un utilisateur puis en s'identifiant avec un token 
+*
+*    User : erwan@gmail.com 
+*    MDP :  test
+*/
+// 

@@ -3,8 +3,7 @@ const authController = require('../controllers/auth.controllers');
 
 
  
- // Authentification
-
+// Authentification
 router.post('/signup', authController.signUp);
 router.post("/login", authController.login);
 
