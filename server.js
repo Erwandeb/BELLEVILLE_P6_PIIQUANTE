@@ -7,12 +7,15 @@ require('./config/database-config/dbConfig');
 const cors = require('cors');
 const bodyparser = require('body-parser');
 const cookieparser = require('cookie-parser');
+const path = require('path');
 
 const app = express();
 
 app.use(cors());
 app.use(bodyparser.json());
 app.use(cookieparser());
+
+app.use('/images', express.static(path.join(__dirname,"images")))
 
 
 
@@ -32,8 +35,8 @@ app.listen(process.env.PORT, ()=>{
 
 /* TO DO LIST
 *
-* 1/ Intégrer le front
-* 2/ Tester la route create sauce en commencant par créer un utilisateur puis en s'identifiant avec un token 
+* 
+*  Tester la route create sauce en commencant par créer un utilisateur puis en s'identifiant avec un token 
 *
 *    User : erwan@gmail.com 
 *    MDP :  test
