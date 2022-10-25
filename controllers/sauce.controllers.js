@@ -27,9 +27,7 @@ exports.createSauce = (req, res) => {
   delete sauceObject._id;
   const sauce = new Sauce({
     ...sauceObject,
-    imageUrl: `${req.protocol}://${req.get("host")}/piiquante-api/images/${
-      req.file.filename
-    }`,
+    imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
   });
   sauce
     .save()
@@ -41,13 +39,37 @@ exports.createSauce = (req, res) => {
 
 // MODIFY
 exports.modifySauce = (req, res) => {
-  Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+  const modifiedSauce = req.file ? {
+    ...JSON.parse(req.body.sauce),
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  }  : { ...req.body };
+  
+  Sauce.updateOne({ _id: req.params.id }, { ...modifiedSauce, _id: req.params.id })
   .then(() => res.status(200).json({ message: 'Objet modifié !'}))
   .catch(error => res.status(500).json({error: "internal server error"}));
+  
+  /*
+  delete modifiedSauce._userId;
+  Sauce.findOne({_id: req.params.id})
+      .then((element) => {
+          if (element.userId != req.auth.userId) {
+              res.status(401).json({ message : 'Not authorized'});
+          } else {
+              Sauce.updateOne({ _id: req.params.id}, { ...modifiedSauce, _id: req.params.id})
+              .then(() => res.status(200).json({message : 'Objet modifié!'}))
+              .catch(error => res.status(500).json({ error: "internal server error" }));
+          }
+      })
+      .catch((error) => {
+          res.status(400).json({ error });
+      });
+*/
+  
 };
 
 
 // DELETE
+/*
 exports.deleteSauce = (req, res) => {  
   Sauce.deleteOne({ _id: req.params.id })
     .then((sauce) =>{
@@ -59,15 +81,30 @@ exports.deleteSauce = (req, res) => {
         console.log('oui')
       })
   })
-  .catch(error => res.status(500).json({error: "internal server error" }))
+  .catch(error => res.status(500).json({error: "internal server error" }) )
 };
+*/
 
+exports.deleteSauce = (req, res) => {
+  Sauce.findOne({ _id: req.params.id })
+    .then((sauce) => {
+      const filename = sauce.imageUrl.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {
+        Sauce.deleteOne({ _id: req.params.id })
+          .then(() =>
+            res.status(200).json({ message: "Sauce supprimée !"})
+          )
+          .catch((error) => res.status(500).json({error: "internal server error" }));
+      });
+    })
+    .catch((error) => res.status(500).json({error: "internal server error" }));
+};
+ 
 
 // LIKE & DISLIKE
 exports.likeSauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id });
 
 
-  
 
 };
