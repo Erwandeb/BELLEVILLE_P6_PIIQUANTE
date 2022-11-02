@@ -8,7 +8,6 @@ const cors = require('cors');
 const bodyparser = require('body-parser');
 const cookieparser = require('cookie-parser');
 const path = require('path');
-
 const app = express();
 
 app.use(cors());
@@ -34,11 +33,9 @@ app.listen(process.env.PORT, ()=>{
 
 
 /* TO DO LIST
-*
 * 
 *  Tester la route create sauce en commencant par créer un utilisateur puis en s'identifiant avec un token 
 *
 *    User : erwan@gmail.com 
 *    MDP :  test
 */
-// 

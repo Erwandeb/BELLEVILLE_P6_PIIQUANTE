@@ -1,14 +1,17 @@
-Pour faire fonctionner l'application:
+Bienvenue sur le projet API Piiquante par Erwan de Belleville
 
+Attention >>>>>   cette application est destinée a ne fonctionner qu'en local.
 
+Procédure d'utilisation :
 
--------Pour lancer le serveur backend, depuis le repertoire de travail :
+1- Téléchargez la totalité du projet
 
-Ouvrir un nouveau terminal, entrer la commande "cd piiquante-api", puis "npm install" (pour installer les fichiers nécessaires), 
+2-Démarrez le serveur backend :
+Ouvrir un nouveau terminal, entrer la commande "cd piiquante-api", puis "npm install" fichiers , puis entrer la commande "npm start" pour lancer le projet.
 
-puis entrer la commande "npm start" pour lancer le projet.
+3-Démarrez l'appli frontend : 
+Ouvrir un nouveau terminal, entrer la commande "cd front", puis "npm install". A la fin du téléchargement entrez la commande "npm start"
 
----------pour lancer l'appli frontend, depuis le reprtoire de travail :
+4- Utilisez l'application sur localhost 4200 (http://localhost:4200/)
 
-Ouvrir un nouveau terminal, entrer la commande "cd front", puis "npm install" (pour installer les fichiers nécessaires), 
-puis entrer la commande "npm start".
+5- Créez un compte et amusez vous a créer, liker et partager vos recettes !
