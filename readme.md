@@ -1,9 +1,10 @@
 Bienvenue sur le projet API Piiquante par Erwan de Belleville
 
-Attention >>>>>   cette application est destinée a ne fonctionner qu'en local.
+Procédure d'installation :
 
-Procédure d'utilisation :
 
+
+Procédure de lancement
 1- Téléchargez la totalité du projet
 
 2-Démarrez le serveur backend :

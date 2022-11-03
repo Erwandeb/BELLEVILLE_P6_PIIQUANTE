@@ -53,11 +53,11 @@ exports.modifySauce = (req, res) => {
 
   Sauce.updateOne({ _id: req.params.id }, { ...modifiedSauce })
   .then((sauce) => {
-    if (sauce.userId != req.auth.userId) {
-        return res.status(401).json({ message : 'Not authorized'});
+    if (sauce.userId != req.authorization.userId) {
+      return res.status(401).json({ message : 'Not authorized'});
     }
     Sauce.updateOne({ _id: req.params.id}, { ...modifiedSauce})
-    .then(() => res.status(200).json({message : 'Objet modifié!'}))
+    .then(() => res.status(200).json({message : 'Sauce modifiée!'}))
     .catch(error => res.status(401).json({ error }));
   })
   .catch(error => res.status(500).json({error: "internal server error"}));
@@ -66,20 +66,30 @@ exports.modifySauce = (req, res) => {
 
 // DELETE A SAUCE 
 exports.deleteSauce = (req, res) => {
+
   Sauce.findOne({_id: req.params.id})
+  /*
+  Sauce.findOne({
+    _id: req.params.id,
+    sauceUserId : req.body.userId,
+    userId : req.userId,
+  })
+  */
     .then((sauce) => {
-      if(sauce.userId != req.auth.userId){
-        res.status(403).json({message: 'Not authorized'});
-      } else{
-        const filename = sauce.imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-          Sauce.deleteOne({ _id: req.params.id })
-            .then(() =>
-              res.status(200).json({ message: "Sauce supprimée !"})
-            )
-            .catch((error) => res.status(500).json({error: "internal server error" }));
-        });
-      }
+      if(sauce.userId != req.userId){
+        return res.status(403).json({message: 'Not authorized'});
+      } 
+      const filename = sauce.imageUrl.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {
+        Sauce.deleteOne({ _id: req.params.id })
+          .then(() =>{
+            if(sauce.userId != req.userId){
+              return res.status(403).json({message: 'Not authorized'});
+            }
+            res.status(200).json({ message: "Sauce supprimée !"})
+          })
+          .catch((error) => res.status(500).json({error: "internal server error" }));
+      });
     })
     .catch((error) => res.status(500).json({error: "internal server error" }));
 };
