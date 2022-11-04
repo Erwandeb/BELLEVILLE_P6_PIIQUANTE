@@ -1,10 +1,11 @@
-#Bienvenue sur le projet API Piiquante par Erwan de Belleville
+Bienvenue sur le projet API Piiquante par Erwan de Belleville
 
-##Minimum installation :
+Minimum installation :
 
     NodeJs : Version 18.12.0 LTS Or Later
 
-##Procédure d'installation :
+
+Procédure d'installation :
 
     1- Téléchargez la totalité du projet sur github
 
@@ -22,7 +23,7 @@
     5- C'est pret !
 
 
-##Procédure de lancement
+Procédure de lancement##
 
 
     1-Démarrez le serveur backend :
