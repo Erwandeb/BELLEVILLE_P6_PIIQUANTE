@@ -32,9 +32,9 @@ app.listen(process.env.PORT, ()=>{
 
 
 
-/* TO DO LIST
+/* user connect
 * 
-*  Tester la route create sauce en commencant par créer un utilisateur puis en s'identifiant avec un token 
+*  Utilisateur 1 
 *
 *    User : erwan@gmail.com 
 *    MDP :  test

@@ -40,7 +40,6 @@ exports.createSauce = (req, res) => {
 };
 
 
-
 // MODIFY A SAUCE
 exports.modifySauce = (req, res) => {
 
@@ -63,29 +62,22 @@ exports.modifySauce = (req, res) => {
 };
 
 
+
 // DELETE A SAUCE 
 exports.deleteSauce = (req, res) => {
-
-  Sauce.findOne({_id: req.params.id})
-  /*
-  Sauce.findOne({
-    _id: req.params.id,
-    sauceUserId : req.body.userId,
-    userId : req.userId,
-  })
-  */
+    Sauce.findOne({
+      _id: req.params.id,
+      userId : req.userId,
+    })
     .then((sauce) => {
-      if(sauce.userId != req.userId){
-        return res.status(403).json({message: 'Not authorized'});
+      if(!sauce){
+        return res.status(404).json({message: 'ressource not found'});
       } 
       const filename = sauce.imageUrl.split("/images/")[1];
       fs.unlink(`images/${filename}`, () => {
         Sauce.deleteOne({ _id: req.params.id })
           .then(() =>{
-            if(sauce.userId != req.userId){
-              return res.status(403).json({message: 'Not authorized'});
-            }
-            res.status(200).json({ message: "Sauce supprimée !"})
+            return res.status(200).json({ message: "Sauce supprimée !"})
           })
           .catch((error) => res.status(500).json({error: "internal server error" }));
       });
@@ -100,6 +92,9 @@ exports.likeSauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id })
 
   .then((sauce) =>{
+    if(!sauce){
+      return res.status(404).json({message: 'ressource not found'});
+    }
     const sauceLikes = sauce.usersLiked;
     const sauceDislikes = sauce.usersDisliked;
 
