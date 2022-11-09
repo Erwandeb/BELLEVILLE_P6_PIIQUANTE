@@ -17,7 +17,6 @@ Procédure d'installation :
     PORT=3000 // A vous de choisir le port de votre choix pour faire tourner le server node
     DB_ADMIN_LOGIN=user:password  // Changez le pseudo et le mot de passe de votre base de données
     SECURITY_TOKEN=password // Définissez un mot de passe 
-    IMAGEDIR="images" // Choisissez ou vous stockez vos images
 
     5- A la racine du dossier piiquante-api, créez un dossier vide "images"
 
